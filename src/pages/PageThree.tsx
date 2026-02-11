@@ -2,11 +2,11 @@ import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const HEADLINE =
-  "Allison Lin, the most beautiful woman in the galaxy and in my world, will you be my Valentine?"
+  "Allison Lin, the most beautiful woman on earth and beyond the galaxies and multiverse that exist who I'm proud to call my girlfriend and partner in crime, will you be my valentine?"
 
 const NO_ATTEMPTS_BEFORE_LOCK = 5
 
-const MILK_MOCHA_GIF = "https://media.tenor.com/2gGu7w5a_mcAAAAC/milk-mocha-bear.gif"
+const BEAR_GIF = "https://media.tenor.com/2912093415419701311/tenor.gif"
 
 interface PageThreeProps {
   onContinue: () => void
@@ -62,8 +62,8 @@ export default function PageThree({ onContinue }: PageThreeProps) {
         className="mb-6"
       >
         <img
-          src={MILK_MOCHA_GIF}
-          alt="Milk and Mocha bears"
+          src={BEAR_GIF}
+          alt="Cute bear hug"
           className="w-32 h-32 md:w-40 md:h-40 object-contain rounded-2xl"
         />
       </motion.div>

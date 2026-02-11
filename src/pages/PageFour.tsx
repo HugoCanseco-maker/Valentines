@@ -5,63 +5,7 @@ import confetti from 'canvas-confetti'
 const heartShape = confetti.shapeFromText({ text: '❤️', scalar: 1.2 })
 
 const FINAL_MESSAGE =
-  "YIPEPEPPEPE!!! I cant wait to see you on the 14th and for what I have planed mwehehehhe. Happy Valentine's Pooks, love youuuuuu! ❤️❤️❤️"
-
-function EnvelopeWithRose() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2, duration: 0.6 }}
-      className="flex flex-col items-center mb-8"
-    >
-      {/* Envelope */}
-      <svg
-        viewBox="0 0 100 70"
-        className="w-36 h-28 md:w-44 md:h-32 text-rose-400/90"
-      >
-        <path
-          d="M5 15 L50 40 L95 15 L95 65 L5 65 Z"
-          fill="currentColor"
-        />
-        <path
-          d="M5 15 L50 40 L95 15"
-          fill="currentColor"
-          fillOpacity="0.8"
-        />
-        <path d="M5 15 L50 40 L5 65" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.5" />
-        <path d="M95 15 L50 40 L95 65" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.5" />
-      </svg>
-      {/* Rose below envelope */}
-      <svg
-        viewBox="0 0 64 64"
-        className="w-20 h-20 md:w-24 md:h-24 -mt-2 text-rose-500"
-      >
-        <path
-          d="M32 55 Q28 40 32 22 Q36 40 32 55"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <path
-          d="M32 18 Q24 12 28 8 Q32 12 36 8 Q40 12 32 18"
-          fill="currentColor"
-          fillOpacity="0.95"
-        />
-        <path
-          d="M28 14 Q20 10 24 6 Q32 10 40 6 Q44 10 36 14"
-          fill="currentColor"
-          fillOpacity="0.9"
-        />
-        <path
-          d="M32 22 Q24 16 28 12 Q32 16 36 12 Q40 16 32 22"
-          fill="currentColor"
-        />
-      </svg>
-    </motion.div>
-  )
-}
+  "YIPPEE!!! I can't wait to see you on the 14th and for what I have planned mwehehehhe. Happy Valentine's Pooks, love youuuuuu! ❤️❤️❤️"
 
 export default function PageFour() {
   const hasFired = useRef(false)
@@ -110,7 +54,19 @@ export default function PageFour() {
         background: 'radial-gradient(ellipse at center, #fff5f5 0%, #fed7e2 100%)',
       }}
     >
-      <EnvelopeWithRose />
+      {/* Snoopy and Woodstock image */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.6 }}
+        className="mb-8"
+      >
+        <img
+          src="/snoopy-woodstock.png"
+          alt="Snoopy and Woodstock"
+          className="w-48 h-48 md:w-64 md:h-64 object-contain rounded-2xl"
+        />
+      </motion.div>
 
       <motion.div
         initial={{ scale: 0.95, y: 20 }}
