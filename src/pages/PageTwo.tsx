@@ -1,34 +1,36 @@
 import { motion } from 'framer-motion'
 
-const LYRICS = [
-  'Unos ojos bañados de luz son un motivo',
-  'Unos labios queriendo besar son un motivo',
-  'Y me quedo mirandote aquí, encontrandote tantos motivos',
-  'Yo concluyo que mi motivo mejor eres tu',
-]
+const LYRICS = {
+  topLeft: 'Unos ojos bañados de luz son un motivo',
+  topRight: 'Unos labios queriendo besar son un motivo',
+  bottomLeft: 'Y me quedo mirandote aquí, encontrandote tantos motivos',
+  bottomRight: 'Yo concluyo que mi motivo mejor eres tu',
+}
 
 const LETTER_TEXT =
-  "To Allison, When I listen to songs like Motivos by Luis Miguel, what I am reminded of is you and our relationship that is honestly the greatest thing that has ever happened since meeting in Tokyo. It truly reminds me that all the sacrifices and effort truly isn't going to vain, and that we both feel comfortable to show our Love Language to each other, which for me is making this website to ask you one important question."
+  "To Allison, When I listen to songs like Motivos by Luis Miguel, what I am reminded of is you and our relationship that is honestly the greatest thing that has ever happened since meeting in Tokyo. It truly reminds me that all the sacrifices and effort truly isn't in vain, and that we both feel comfortable to show our Love Language to each other, which for me is making this website to ask you one important question."
 
 interface LyricFrameProps {
   children: React.ReactNode
-  position: string
+  gridArea: string
+  textAlign?: 'left' | 'right'
   delay?: number
 }
 
-function LyricFrame({ children, position, delay = 0 }: LyricFrameProps) {
+function LyricFrame({ children, gridArea, textAlign = 'left', delay = 0 }: LyricFrameProps) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay, duration: 0.5 }}
-      className={`absolute bg-white rounded-lg px-4 py-3 ${position}`}
+      className="bg-white rounded-lg px-3 py-2 md:px-4 md:py-3 flex items-center justify-center min-w-0"
       style={{
+        gridArea,
         border: '4px solid #5D4037',
-        maxWidth: '200px',
+        textAlign,
       }}
     >
-      <p className="font-cursive font-bold text-rose-700/90 text-sm md:text-base leading-relaxed">
+      <p className="font-cursive font-bold text-[#3E2723] text-xs md:text-sm leading-relaxed">
         {children}
       </p>
     </motion.div>
@@ -46,65 +48,84 @@ export default function PageTwo({ onContinue }: PageTwoProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
-      className="min-h-screen flex flex-col overflow-auto relative"
+      className="h-screen overflow-hidden grid gap-4 p-4 md:p-6 md:gap-6"
       style={{
         background: 'radial-gradient(ellipse at center, #fff5f5 0%, #fed7e2 100%)',
+        gridTemplateColumns: '1fr minmax(260px, 1.2fr) 1fr',
+        gridTemplateRows: 'auto 1fr auto auto',
+        gridTemplateAreas: `
+          "top-left     .           top-right"
+          "left-photo   letter      right-photo"
+          "bottom-left  .           bottom-right"
+          "button       button      button"
+        `,
       }}
     >
-      {/* Four Corners - Lyric Frames */}
-      <LyricFrame position="top-4 left-4" delay={0.2}>
-        {LYRICS[0]}
+      {/* Four Corner Lyrics */}
+      <LyricFrame gridArea="top-left" delay={0.15}>
+        {LYRICS.topLeft}
       </LyricFrame>
-      <LyricFrame position="top-4 right-4 text-right" delay={0.25}>
-        {LYRICS[1]}
+      <LyricFrame gridArea="top-right" textAlign="right" delay={0.2}>
+        {LYRICS.topRight}
       </LyricFrame>
-      <LyricFrame position="bottom-24 left-4" delay={0.3}>
-        {LYRICS[2]}
+      <LyricFrame gridArea="bottom-left" delay={0.25}>
+        {LYRICS.bottomLeft}
       </LyricFrame>
-      <LyricFrame position="bottom-24 right-4 text-right" delay={0.35}>
-        {LYRICS[3]}
+      <LyricFrame gridArea="bottom-right" textAlign="right" delay={0.3}>
+        {LYRICS.bottomRight}
       </LyricFrame>
 
-      {/* Middle Tier - Photo Placeholders */}
+      {/* Side Photo Placeholders - vertical rectangles */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35 }}
+        className="rounded-2xl bg-white/80 border-2 border-rose-200/60 flex items-center justify-center shadow-md min-h-0"
+        style={{ gridArea: 'left-photo' }}
+      >
+        <span className="font-sans text-rose-500/70 text-xs text-center px-3">
+          Photo of Allison
+        </span>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-32 h-32 md:w-44 md:h-44 rounded-2xl bg-white/70 border-2 border-rose-200/60 flex items-center justify-center shadow-md"
+        className="rounded-2xl bg-white/80 border-2 border-rose-200/60 flex items-center justify-center shadow-md min-h-0"
+        style={{ gridArea: 'right-photo' }}
       >
-        <span className="font-sans text-rose-500/70 text-xs text-center px-2">Photo of Allison</span>
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.45 }}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-32 h-32 md:w-44 md:h-44 rounded-2xl bg-white/70 border-2 border-rose-200/60 flex items-center justify-center shadow-md"
-      >
-        <span className="font-sans text-rose-500/70 text-xs text-center px-2">Photo of us as a couple</span>
+        <span className="font-sans text-rose-500/70 text-xs text-center px-3">
+          Photo of us as a couple
+        </span>
       </motion.div>
 
-      {/* Centerpiece - The Letter (paper style) */}
+      {/* Centerpiece - The Paper Letter */}
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.35, duration: 0.5 }}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-lg px-6 py-6 rounded-sm"
+        transition={{ delay: 0.3, duration: 0.5 }}
+        className="rounded-sm overflow-auto min-h-0 flex items-center"
         style={{
-          background: '#faf6f0',
+          gridArea: 'letter',
+          background: '#fffdf5',
           boxShadow: '0 4px 20px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04)',
         }}
       >
-        <p className="font-sans text-rose-800/90 text-sm md:text-base leading-relaxed">
+        <p
+          className="font-sans text-rose-800/90 text-sm md:text-base leading-relaxed w-full"
+          style={{ padding: '2rem' }}
+        >
           {LETTER_TEXT}
         </p>
       </motion.div>
 
-      {/* Continue button - very bottom, centered */}
+      {/* Continue Button */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
+        transition={{ delay: 0.5 }}
+        className="flex justify-center items-center pt-2 z-10"
+        style={{ gridArea: 'button' }}
       >
         <motion.button
           whileHover={{ y: -4, scale: 1.02 }}
