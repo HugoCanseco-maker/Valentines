@@ -7,17 +7,16 @@ const LYRICS = {
   bottomRight: 'Yo concluyo que mi motivo mejor eres tu',
 }
 
-const LETTER_TEXT =
-  "To Allison, When I listen to songs like Motivos by Luis Miguel, what I am reminded of is you and our relationship that is honestly the greatest thing that has ever happened since meeting in Tokyo. It truly reminds me that all the sacrifices and effort truly isn't in vain, and that we both feel comfortable to show our Love Language to each other, which for me is making this website to ask you one important question."
+const LETTER_BODY =
+  "When I listen to songs like Motivos by Luis Miguel, what I am reminded of is you and our relationship that is honestly the greatest thing that has ever happened since meeting in Tokyo. It truly reminds me that all the sacrifices and effort truly isn't in vain, and that we both feel comfortable to show our Love Language to each other, which for me is making this website to ask you one important question."
 
 interface LyricFrameProps {
   children: React.ReactNode
   gridArea: string
-  textAlign?: 'left' | 'right'
   delay?: number
 }
 
-function LyricFrame({ children, gridArea, textAlign = 'left', delay = 0 }: LyricFrameProps) {
+function LyricFrame({ children, gridArea, delay = 0 }: LyricFrameProps) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -27,10 +26,10 @@ function LyricFrame({ children, gridArea, textAlign = 'left', delay = 0 }: Lyric
       style={{
         gridArea,
         border: '4px solid #5D4037',
-        textAlign,
+        textAlign: 'center',
       }}
     >
-      <p className="font-cursive font-bold text-[#3E2723] text-xs md:text-sm leading-relaxed">
+      <p className="font-cursive font-bold text-[#3E2723] text-base md:text-lg leading-relaxed">
         {children}
       </p>
     </motion.div>
@@ -65,13 +64,13 @@ export default function PageTwo({ onContinue }: PageTwoProps) {
       <LyricFrame gridArea="top-left" delay={0.15}>
         {LYRICS.topLeft}
       </LyricFrame>
-      <LyricFrame gridArea="top-right" textAlign="right" delay={0.2}>
+      <LyricFrame gridArea="top-right" delay={0.2}>
         {LYRICS.topRight}
       </LyricFrame>
       <LyricFrame gridArea="bottom-left" delay={0.25}>
         {LYRICS.bottomLeft}
       </LyricFrame>
-      <LyricFrame gridArea="bottom-right" textAlign="right" delay={0.3}>
+      <LyricFrame gridArea="bottom-right" delay={0.3}>
         {LYRICS.bottomRight}
       </LyricFrame>
 
@@ -111,12 +110,13 @@ export default function PageTwo({ onContinue }: PageTwoProps) {
           boxShadow: '0 4px 20px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04)',
         }}
       >
-        <p
-          className="font-sans text-rose-800/90 text-sm md:text-base leading-relaxed w-full"
-          style={{ padding: '2rem' }}
+        <div
+          className="font-sans text-rose-800/90 text-sm md:text-base leading-relaxed w-full text-left"
+          style={{ padding: '2.5rem' }}
         >
-          {LETTER_TEXT}
-        </p>
+          <p className="mb-4">Dear Allison,</p>
+          <p className="text-justify">{LETTER_BODY}</p>
+        </div>
       </motion.div>
 
       {/* Continue Button */}
@@ -124,7 +124,7 @@ export default function PageTwo({ onContinue }: PageTwoProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="flex justify-center items-center pt-2 z-10"
+        className="flex justify-center items-center pt-4 mt-4 z-10"
         style={{ gridArea: 'button' }}
       >
         <motion.button
