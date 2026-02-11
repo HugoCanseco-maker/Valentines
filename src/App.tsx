@@ -13,8 +13,13 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen overflow-hidden">
-      <AnimatePresence mode="wait">
+    <div
+      className="min-h-screen overflow-hidden"
+      style={{
+        background: 'radial-gradient(ellipse at center, #fff5f5 0%, #fed7e2 100%)',
+      }}
+    >
+      <AnimatePresence mode="wait" initial={false}>
         {currentPage === 1 && (
           <PageOne key="page1" onContinue={goToNextPage} />
         )}

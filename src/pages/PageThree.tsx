@@ -6,13 +6,15 @@ const HEADLINE =
 
 const NO_ATTEMPTS_BEFORE_LOCK = 5
 
+const MILK_MOCHA_GIF = "https://media.tenor.com/2gGu7w5a_mcAAAAC/milk-mocha-bear.gif"
+
 interface PageThreeProps {
   onContinue: () => void
 }
 
 export default function PageThree({ onContinue }: PageThreeProps) {
   const [noClicks, setNoClicks] = useState(0)
-  const [noButtonPos, setNoButtonPos] = useState({ left: '50%', top: '55%' })
+  const [noButtonPos, setNoButtonPos] = useState({ left: 'calc(50% + 80px)', top: '58%' })
   const [yesScale, setYesScale] = useState(1)
   const [isLocked, setIsLocked] = useState(false)
 
@@ -30,7 +32,7 @@ export default function PageThree({ onContinue }: PageThreeProps) {
     const newCount = noClicks + 1
     setNoClicks(newCount)
     setNoButtonPos(getRandomPosition())
-    setYesScale(1 + newCount * 0.1) // +10% per click, so +50% at 5 clicks
+    setYesScale(1 + newCount * 0.1)
 
     if (newCount >= NO_ATTEMPTS_BEFORE_LOCK) {
       setIsLocked(true)
@@ -46,22 +48,36 @@ export default function PageThree({ onContinue }: PageThreeProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6 }}
-      className="min-h-screen flex flex-col items-center justify-center px-6 py-16 relative overflow-hidden"
+      transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+      className="min-h-screen flex flex-col items-center justify-center px-6 py-12 relative overflow-hidden"
       style={{
         background: 'radial-gradient(ellipse at center, #fff5f5 0%, #fed7e2 100%)',
       }}
     >
+      {/* Milk and Mocha bear GIF - centered above question */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+        className="mb-6"
+      >
+        <img
+          src={MILK_MOCHA_GIF}
+          alt="Milk and Mocha bears"
+          className="w-32 h-32 md:w-40 md:h-40 object-contain rounded-2xl"
+        />
+      </motion.div>
+
       <motion.h2
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="font-serif text-2xl md:text-3xl lg:text-4xl text-center text-rose-700/90 max-w-4xl leading-relaxed mb-16"
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="font-serif text-2xl md:text-3xl lg:text-4xl text-center text-rose-700/90 max-w-4xl leading-relaxed mb-12"
       >
         {HEADLINE}
       </motion.h2>
 
-      <div className="flex justify-center items-center relative min-h-[200px]">
+      <div className="flex justify-center items-center relative min-h-[120px]">
         <AnimatePresence mode="wait">
           {!isLocked ? (
             <motion.div
@@ -69,14 +85,15 @@ export default function PageThree({ onContinue }: PageThreeProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex justify-center items-center gap-10 relative"
+              transition={{ duration: 0.4 }}
+              className="flex items-center justify-center gap-6 relative"
             >
               <motion.button
                 animate={{ scale: yesScale }}
                 whileHover={{ y: -4, scale: yesScale * 1.05 }}
                 whileTap={{ scale: yesScale * 0.98 }}
                 onClick={handleYesClick}
-                className="px-12 py-4 rounded-[50px] font-sans font-semibold text-white text-xl shadow-lg shadow-rose-300/40 z-10"
+                className="relative z-10 px-12 py-4 rounded-[50px] font-sans font-semibold text-white text-xl shadow-lg shadow-rose-300/40"
                 style={{
                   background: 'linear-gradient(135deg, #f43f5e 0%, #fb7185 100%)',
                 }}
@@ -103,11 +120,8 @@ export default function PageThree({ onContinue }: PageThreeProps) {
             <motion.button
               key="fullscreen-yes"
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-              }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
               onClick={handleYesClick}
               className="fixed inset-0 z-50 flex items-center justify-center w-full h-full font-serif text-3xl md:text-5xl font-bold text-white cursor-pointer"
               style={{

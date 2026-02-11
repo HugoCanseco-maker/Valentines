@@ -39,7 +39,7 @@ export default function PageOne({ onContinue }: PageOneProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.6, ease: 'easeInOut' }}
+      transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
       className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
       style={{
         background: 'radial-gradient(ellipse at center, #fef7f9 0%, #fff5f5 50%, #fed7e2 100%)',

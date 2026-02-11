@@ -9,6 +9,7 @@ export default {
       fontFamily: {
         serif: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        cursive: ['"Great Vibes"', 'cursive'],
       },
       colors: {
         rose: {
