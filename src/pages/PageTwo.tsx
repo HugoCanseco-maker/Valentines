@@ -74,28 +74,32 @@ export default function PageTwo({ onContinue }: PageTwoProps) {
         {LYRICS.bottomRight}
       </LyricFrame>
 
-      {/* Side Photo Placeholders - vertical rectangles */}
+      {/* Side Photos */}
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.35 }}
-        className="rounded-2xl bg-white/80 border-2 border-rose-200/60 flex items-center justify-center shadow-md min-h-0"
+        className="rounded-2xl overflow-hidden bg-white/80 border-2 border-rose-200/60 shadow-md min-h-0 flex items-center justify-center"
         style={{ gridArea: 'left-photo' }}
       >
-        <span className="font-sans text-rose-500/70 text-xs text-center px-3">
-          Photo of Allison
-        </span>
+        <img
+          src="/allison-photo.png"
+          alt="Allison"
+          className="w-full h-full object-cover"
+        />
       </motion.div>
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="rounded-2xl bg-white/80 border-2 border-rose-200/60 flex items-center justify-center shadow-md min-h-0"
+        className="rounded-2xl overflow-hidden bg-white/80 border-2 border-rose-200/60 shadow-md min-h-0 flex items-center justify-center"
         style={{ gridArea: 'right-photo' }}
       >
-        <span className="font-sans text-rose-500/70 text-xs text-center px-3">
-          Photo of us as a couple
-        </span>
+        <img
+          src="/couple-photo.png"
+          alt="Allison and Hugo"
+          className="w-full h-full object-cover"
+        />
       </motion.div>
 
       {/* Centerpiece - The Paper Letter */}
